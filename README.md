@@ -1,5 +1,6 @@
 # Simple Messages
 
+[![Build Status](https://travis-ci.org/29sul/simple_messages.svg?branch=master)](https://travis-ci.org/29sul/simple_messages)
 [![Code Climate](https://codeclimate.com/github/29sul/simple_messages/badges/gpa.svg)](https://codeclimate.com/github/29sul/simple_messages)
 
 Gem for show the ActiveModel Validations and Flash messages.
