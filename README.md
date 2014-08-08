@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/29sul/simple_messages/badge.png?branch=master)](https://coveralls.io/r/29sul/simple_messages?branch=master)
 [![Code Climate](https://codeclimate.com/github/29sul/simple_messages/badges/gpa.svg)](https://codeclimate.com/github/29sul/simple_messages)
 
-Gem for show the ActiveModel Validations and Flash messages.
+Gem for displaying flash messages and validation of ActiveRecord.
 
 ## Installation
 
@@ -22,72 +22,41 @@ Or install it yourself as:
 
 ## Usage
 
-Simply call localized on your models:
+### View helpers
 
-    class Product < ActiveRecord::Base
-      localized
-    end
+Show messages from flash and ActiveRecord. Options: { flash_messages: true, validation_messages: true, closable: false }
 
-By default, all the columns of type decimal, float, date, time will be located.
+    = simple_messages
 
-    product = Product.new(quantity: 7, unit_amount: 1_123.25, issued_at: Date.new(2014, 2, 13) )
-    product.issued_at # Thu, 13 Feb 2014
-    product.issued_at_localized # 2014-2-13
-    product.unit_amount # 1123.25
-    product.unit_amount_localized # 1,123.25
+Show only messages from flash. Options: { closable: false }
 
-### Specifying other attributes
+    = simple_messages_flash closable: true
 
-You can, however, inform other attributes or methods you want to localize.
+Show only messages from validations of ActiveRecord. Options: { closable: false }
 
-    class Product < ActiveRecord::Base
-      localize methods: { total: :decimal }
+    = simple_messages_validation closable: false
 
-      def total
-        quantity * unit_amount
-      end
-    end
+Show messages on remote request.
 
-### Custom parser
+    js_simple_messages
 
-You can create your modules themselves.
+Show messages in a alert javascript.
 
-    module CustomParser
-      def parse(value)
+    js_simple_messages_alert [ 'This message 1.', 'This message 2.' ]
 
-      end
+### Controller helpers
 
-      def localize(value)
+Add product object ActiveRecord
 
-      end
-    end
+    simple_messages_for_model :product
 
-    class Product < ActiveRecord::Base
-      localize methods: { total: CustomParser }
+Skipping product object ActiveRecord
 
-      def total
-        quantity * unit_amount
-      end
-    end
+    dont_simple_messages_for_model :product
 
-## Add more formats supported
+List objects ActiveRecord
 
-By default, the date and time is used the default format defined in the translation file.
+    simple_messages_models
 
-    en:
-      date:
-        formats:
-          localized:
-          - '%d/%m/%Y'
-          - '%d-%m-%Y'
-          - '%d/%m/%y'
-          - '%d-%m-%y'
-          - '%d/%m'
-          - '%d-%m'
+by default is added the controller_name.singular.
 
-      time:
-        formats:
-          localized:
-          - '%d-%m-%Y %H:%M'
-          - '%H:%M:%S'
-          - '%H:%M'
