@@ -1,7 +1,3 @@
-require "i18n"
-require "action_controller"
-require "action_view"
-require "active_support"
 require "simple_messages/engine"
 require "simple_messages/version"
 
