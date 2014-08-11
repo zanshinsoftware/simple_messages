@@ -10,7 +10,15 @@ var SimpleMessages = {
     alert(msg);
   },
 
-  flash: function (data) {
+  flash: function (data, settings) {
+    if (settings === undefined) {
+      settings = {};
+    }
+
+    $.extend(settings, {
+      context: '#content'
+    });
+
     if (typeof(data) === 'object' && data.success !== undefined && (data.notice !== undefined || data.alert !== undefined)) {
       if (data.notice !== undefined) {
         Message.flash_notice(data.notice);
@@ -20,7 +28,7 @@ var SimpleMessages = {
     } else if ($.isArray(data)) {
       Message.flash_alert(data.join('<br>'));
     } else {
-      $('#content').before(data).show();
+      $(settings.context).before(data).show();
       $.goTo('body');
     }
   },
@@ -38,5 +46,9 @@ var SimpleMessages = {
       type = 'alert';
     }
     Message[type](data);
-  }
+  },
+
+  hide: function () {
+    return $(".alert").alert();
+  },
 };

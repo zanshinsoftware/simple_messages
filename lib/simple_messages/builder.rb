@@ -1,6 +1,6 @@
 module SimpleMessages
   class Builder
-    ALERT_CLASS_MAPPING = { notice: 'success', error: 'danger' }
+    ALERT_CLASS_MAPPING = { alert: 'warning', notice: 'success', error: 'danger' }
 
     attr_accessor :header, :body, :kind, :closable, :html
 

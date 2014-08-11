@@ -15,11 +15,15 @@ module SimpleMessages
     end
 
     def simple_messages_flash(options = {})
-      flash.collect do |kind, content|
+      html = flash.collect do |kind, content|
         builder = Builder.new({ kind: kind, body: content }.reverse_merge(options))
 
         builder.to_html
-      end.join.html_safe
+      end
+
+      flash.clear if flash.any?
+
+      html.join.html_safe
     end
 
     def simple_messages_objects
