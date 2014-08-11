@@ -67,7 +67,7 @@ describe SimpleMessages::Builder do
       @builder.kind = :alert
     end
 
-    it { expect(@builder.to_html).to eq "<div class='alert alert-alert alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><h4>This title my alert message.</h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>" }
+    it { expect(@builder.to_html).to eq "<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><h4>This title my alert message.</h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>" }
   end
 
   context "with html attributes" do
