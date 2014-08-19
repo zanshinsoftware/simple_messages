@@ -30,7 +30,7 @@ module SimpleMessages
       simple_messages_models.collect do |model_name|
         object = instance_variable_get("@#{model_name}")
 
-        object if object.present? and object.errors.any?
+        object if simple_messages_object_has_errors? object
       end.compact
     end
 
@@ -50,6 +50,11 @@ module SimpleMessages
 
     def js_simple_messages_alert(messages = [])
       "SimpleMessages.alert(#{messages.to_json});".html_safe
+    end
+
+    private
+    def simple_messages_object_has_errors?(object)
+      object.present? and (object.respond_to? :any? and object.errors.any?) or (object.respond_to? :empty? and !object.empty?)
     end
 
   end
