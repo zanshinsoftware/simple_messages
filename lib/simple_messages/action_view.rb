@@ -16,7 +16,7 @@ module SimpleMessages
 
     def simple_messages_flash(options = {})
       html = flash.collect do |kind, content|
-        builder = Builder.new({ kind: kind, body: content }.reverse_merge(options))
+        builder = Builder.new options.reverse_merge(kind: kind, body: content)
 
         builder.to_html
       end
@@ -36,9 +36,9 @@ module SimpleMessages
 
     def simple_messages_validation(options = {})
       simple_messages_objects.collect do |object|
-        title = I18n.t('errors.template.header', count: object.errors.count, model: object.class.model_name.human)
+        title = I18n.t('errors.template.header', count: object.errors.full_messages.count, model: object.class.model_name.human)
 
-        builder = Builder.new({ kind: :error, body: object.errors.full_messages, header: title }.reverse_merge(options))
+        builder = Builder.new options.reverse_merge(kind: :error, body: object.errors.full_messages, header: title)
 
         builder.to_html
       end.join.html_safe
@@ -54,9 +54,11 @@ module SimpleMessages
 
     private
     def simple_messages_object_has_errors?(object)
-      object.present? and (object.respond_to? :any? and object.errors.any?) or (object.respond_to? :empty? and !object.empty?)
+      object.present? and (
+        (object.errors.respond_to? :any? and object.errors.any?) or
+        (object.errors.respond_to? :empty? and !object.errors.empty?)
+      )
     end
 
   end
 end
-
