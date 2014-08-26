@@ -17,6 +17,8 @@ module SimpleMessages
     end
 
     def simple_messages_models
+      return [] if @simple_messages_models.nil? or @dont_simple_messages_models.nil?
+
       (@simple_messages_models.collect(&:to_sym) - @dont_simple_messages_models.collect(&:to_sym)).compact.uniq
     end
 
