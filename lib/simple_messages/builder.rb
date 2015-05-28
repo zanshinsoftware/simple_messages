@@ -40,7 +40,7 @@ module SimpleMessages
     def header_wrapper
       return unless has_header?
 
-      "<h4>#{header}</h4>"
+      "<strong>#{header}</strong><br>"
     end
 
     private
