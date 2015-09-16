@@ -21,12 +21,12 @@ var SimpleMessages = {
 
     if (typeof(data) === 'object' && data.success !== undefined && (data.notice !== undefined || data.alert !== undefined)) {
       if (data.notice !== undefined) {
-        Message.flash_notice(data.notice);
+        SimpleMessages.flash_notice(data.notice);
       } else {
-        Message.flash_alert(data.alert);
+        SimpleMessages.flash_alert(data.alert);
       }
     } else if ($.isArray(data)) {
-      Message.flash_alert(data.join('<br>'));
+      SimpleMessages.flash_alert(data.join('<br>'));
     } else {
       $(settings.context).before(data).show();
       $.goTo('body');
@@ -34,21 +34,21 @@ var SimpleMessages = {
   },
 
   flash_notice: function (data) {
-    Message.flash($('<div />', { 'class' : "alert alert-success", 'text' : data }));
+    SimpleMessages.flash($('<div />', { 'class' : "alert alert-success", 'text' : data }));
   },
 
   flash_alert: function (data) {
-    Message.flash($('<div />', { 'class' : "alert alert-danger", 'text' : data }));
+    SimpleMessages.flash($('<div />', { 'class' : "alert alert-danger", 'text' : data }));
   },
 
   show: function (data, type) {
     if (type === undefined) {
       type = 'alert';
     }
-    Message[type](data);
+    SimpleMessages[type](data);
   },
 
   hide: function () {
     return $(".alert").alert();
-  },
+  }
 };
