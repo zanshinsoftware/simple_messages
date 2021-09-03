@@ -30,11 +30,7 @@ module SimpleMessages
     end
 
     def close_wrapper
-      wrapper = "<button type='button' class='close' data-dismiss='alert'>"
-      wrapper << "<span aria-hidden='true'>&times;</span>"
-      wrapper << "<span class='sr-only'>#{close_text}</span>"
-      wrapper << "</button>"
-      wrapper
+      "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>"
     end
 
     def header_wrapper
@@ -80,10 +76,6 @@ module SimpleMessages
       return @body unless @body.is_a? Array
 
       @body.join '<br />'
-    end
-
-    def close_text
-      I18n.t 'text.close', default: 'Close'
     end
 
     def html_to_attributes
